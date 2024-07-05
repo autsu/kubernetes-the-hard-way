@@ -49,6 +49,19 @@ Install the Kubernetes binaries:
     kube-scheduler kubectl \
     /usr/local/bin/
 }
+
+# me
+{
+	cd downloads
+  chmod +x kube-apiserver \
+    kube-controller-manager \
+    kube-scheduler kubectl
+    
+  cp kube-apiserver \
+    kube-controller-manager \
+    kube-scheduler kubectl \
+    /usr/local/bin/
+}
 ```
 
 ### Configure the Kubernetes API Server
@@ -63,12 +76,27 @@ Install the Kubernetes binaries:
     encryption-config.yaml \
     /var/lib/kubernetes/
 }
+
+# me
+{
+  mkdir -p /var/lib/kubernetes/
+
+  cp ca.crt ca.key \
+    kube-api-server.key kube-api-server.crt \
+    service-accounts.key service-accounts.crt \
+    encryption-config.yaml \
+    /var/lib/kubernetes/
+}
 ```
 
 Create the `kube-apiserver.service` systemd unit file:
 
 ```bash
 mv kube-apiserver.service \
+  /etc/systemd/system/kube-apiserver.service
+  
+# me
+cp units/kube-apiserver.service \
   /etc/systemd/system/kube-apiserver.service
 ```
 
@@ -78,12 +106,18 @@ Move the `kube-controller-manager` kubeconfig into place:
 
 ```bash
 mv kube-controller-manager.kubeconfig /var/lib/kubernetes/
+
+# me
+cp kube-controller-manager.kubeconfig /var/lib/kubernetes/
 ```
 
 Create the `kube-controller-manager.service` systemd unit file:
 
 ```bash
 mv kube-controller-manager.service /etc/systemd/system/
+
+# me
+cp units/kube-controller-manager.service /etc/systemd/system/
 ```
 
 ### Configure the Kubernetes Scheduler
@@ -92,18 +126,27 @@ Move the `kube-scheduler` kubeconfig into place:
 
 ```bash
 mv kube-scheduler.kubeconfig /var/lib/kubernetes/
+
+# me
+mv kube-scheduler.kubeconfig /var/lib/kubernetes/
 ```
 
 Create the `kube-scheduler.yaml` configuration file:
 
 ```bash
 mv kube-scheduler.yaml /etc/kubernetes/config/
+
+# me
+cp configs/kube-scheduler.yaml /etc/kubernetes/config/
 ```
 
 Create the `kube-scheduler.service` systemd unit file:
 
 ```bash
 mv kube-scheduler.service /etc/systemd/system/
+
+# me
+cp units/kube-scheduler.service /etc/systemd/system/
 ```
 
 ### Start the Controller Services
@@ -134,6 +177,12 @@ kubectl cluster-info \
 Kubernetes control plane is running at https://127.0.0.1:6443
 ```
 
+可行
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240630011343.png)
+
+
+
 ## RBAC for Kubelet Authorization
 
 In this section you will configure RBAC permissions to allow the Kubernetes API Server to access the Kubelet API on each worker node. Access to the Kubelet API is required for retrieving metrics, logs, and executing commands in pods.
@@ -151,6 +200,10 @@ Create the `system:kube-apiserver-to-kubelet` [ClusterRole](https://kubernetes.i
 ```bash
 kubectl apply -f kube-apiserver-to-kubelet.yaml \
   --kubeconfig admin.kubeconfig
+  
+# me
+kubectl apply -f configs/kube-apiserver-to-kubelet.yaml \
+  --kubeconfig admin.kubeconfig
 ```
 
 ### Verification
@@ -158,6 +211,8 @@ kubectl apply -f kube-apiserver-to-kubelet.yaml \
 At this point the Kubernetes control plane is up and running. Run the following commands from the `jumpbox` machine to verify it's working:
 
 Make a HTTP request for the Kubernetes version info:
+
+在 `jumpbox` 上执行：
 
 ```bash
 curl -k --cacert ca.crt https://server.kubernetes.local:6443/version
@@ -176,5 +231,11 @@ curl -k --cacert ca.crt https://server.kubernetes.local:6443/version
   "platform": "linux/arm64"
 }
 ```
+
+可行
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240630011444.png)
+
+
 
 Next: [Bootstrapping the Kubernetes Worker Nodes](09-bootstrapping-kubernetes-workers.md)

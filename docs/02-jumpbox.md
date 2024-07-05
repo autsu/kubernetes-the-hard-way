@@ -63,6 +63,13 @@ cat downloads.txt
 
 Download the binaries listed in the `downloads.txt` file using the `wget` command:
 
+- `-q` 或 `--quiet`：安静模式，不显示任何信息或错误信息。但是因为这个命令还使用了 `--show-progress` 参数，所以它会安静地显示进度条而不是完全没有输出。
+- `--show-progress`：即便在安静模式下，也显示下载进度条。这是一个很实用的功能，因为它既简洁又能提供关键的下载进度信息。
+- `--https-only`：仅仅使用HTTPS协议下载文件。这个参数可以增加安全性，因为HTTPS比HTTP协议更加安全，可以防止传输过程中的窥视和数据篡改。
+- `--timestamping`：或 `-N`，启用时间戳检查。这个参数使`wget`在下载文件前检查服务器上的文件时间戳和本地文件的时间戳。如果本地文件是最新的，则会跳过下载操作。这有助于节约带宽，避免不必要的下载。
+- `-P downloads`：指定下载的目录。这里的 `downloads` 是目录名，意味着所有通过这个命令下载的文件都会被保存到当前目录下的 `downloads` 文件夹中。
+- `-i downloads.txt`：从指定的文件 `downloads.txt` 中读取URL列表来下载。文件应该包含一个或多个URL，每个URL占一行。
+
 ```bash
 wget -q --show-progress \
   --https-only \

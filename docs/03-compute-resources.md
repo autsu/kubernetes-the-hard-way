@@ -1,6 +1,27 @@
 # Provisioning Compute Resources
 
+记录：
+
+本节主要配置 k8s 各节点间的可访问性，因为之后的部分操作需要 ssh 到节点做一些操作，但因为我使用的是 orbstack，这个玩意创建的虚拟机互相之间好像不允许通过 ssh 访问，所以跳过本节 ssh 配置相关部分
+
+不过域名解析还是要配置的，以我的为例：
+
+需要为每台机器都配置域名解析
+
+```shell
+cat /etc/hosts
+
+# 搭建 k8s 测试
+198.19.249.197 server.kubernetes.local server
+198.19.249.34 node-0.kubernetes.local node-0
+198.19.249.136 node-1.kubernetes.local node-1
+```
+
+
+
 Kubernetes requires a set of machines to host the Kubernetes control plane and the worker nodes where containers are ultimately run. In this lab you will provision the machines required for setting up a Kubernetes cluster.
+
+Kubernetes 需要一组机器来托管 Kubernetes 控制平面和最终运行容器的工作节点。在本实验中，您将配置设置 Kubernetes 集群所需的计算机。
 
 ## Machine Database
 
@@ -22,6 +43,11 @@ cat machines.txt
 XXX.XXX.XXX.XXX server.kubernetes.local server  
 XXX.XXX.XXX.XXX node-0.kubernetes.local node-0 10.200.0.0/24
 XXX.XXX.XXX.XXX node-1.kubernetes.local node-1 10.200.1.0/24
+
+# me
+198.19.249.197 server.kubernetes.local server
+198.19.249.34 node-0.kubernetes.local node-0 10.200.0.0/24
+198.19.249.136 node-1.kubernetes.local node-1 10.200.1.0/24
 ```
 
 Now it's your turn to create a `machines.txt` file with the details for the three machines you will be using to create your Kubernetes cluster. Use the example machine database from above and add the details for your machines. 

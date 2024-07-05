@@ -4,6 +4,12 @@ In this lab you will generate a kubeconfig file for the `kubectl` command line u
 
 > Run the commands in this lab from the `jumpbox` machine.
 
+
+
+在本实验中，您将根据管理员用户凭据为 kubectl 命令行实用程序生成 kubeconfig 文件。
+
+从 Jumpbox 机器运行本实验中的命令。
+
 ## The Admin Kubernetes Configuration File
 
 Each kubeconfig requires a Kubernetes API Server to connect to.
@@ -51,6 +57,10 @@ Generate a kubeconfig file suitable for authenticating as the `admin` user:
 ```
 The results of running the command above should create a kubeconfig file in the default location `~/.kube/config` used by the  `kubectl` commandline tool. This also means you can run the `kubectl` command without specifying a config.
 
+运行上述命令的结果应在 kubectl 命令行工具使用的默认位置 ~/.kube/config 中创建一个 kubeconfig 文件。这也意味着您可以在不指定配置的情况下运行 kubectl 命令。
+
+
+
 
 ## Verification
 
@@ -77,5 +87,11 @@ NAME     STATUS   ROLES    AGE   VERSION
 node-0   Ready    <none>   30m   v1.28.3
 node-1   Ready    <none>   35m   v1.28.3
 ```
+
+成功：
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240630183805.png)
+
+
 
 Next: [Provisioning Pod Network Routes](11-pod-network-routes.md)
