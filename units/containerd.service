@@ -4,7 +4,8 @@ Documentation=https://containerd.io
 After=network.target
 
 [Service]
-ExecStartPre=/sbin/modprobe overlay
+#orbstack 上找不到 overlay 模块导致运行报错，先注掉这一行
+#ExecStartPre=/sbin/modprobe overlay
 ExecStart=/bin/containerd
 Restart=always
 RestartSec=5

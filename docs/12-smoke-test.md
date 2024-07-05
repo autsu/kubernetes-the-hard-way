@@ -54,6 +54,8 @@ In this section you will verify the ability to create and manage [Deployments](h
 
 Create a deployment for the [nginx](https://nginx.org/en/) web server:
 
+jumpbox 节点上执行
+
 ```bash
 kubectl create deployment nginx \
   --image=nginx:latest
@@ -69,6 +71,10 @@ kubectl get pods -l app=nginx
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-56fcf95486-c8dnx   1/1     Running   0          8s
 ```
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240706010131.png)
+
+
 
 ### Port Forwarding
 
@@ -92,6 +98,10 @@ Forwarding from 127.0.0.1:8080 -> 80
 Forwarding from [::1]:8080 -> 80
 ```
 
+
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240706010326.png)
+
 In a new terminal make an HTTP request using the forwarding address:
 
 ```bash
@@ -110,6 +120,10 @@ ETag: "6537cac7-267"
 Accept-Ranges: bytes
 
 ```
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240706010352.png)
+
+
 
 Switch back to the previous terminal and stop the port forwarding to the `nginx` pod:
 
@@ -186,5 +200,9 @@ Connection: keep-alive
 ETag: "6537cac7-267"
 Accept-Ranges: bytes
 ```
+
+![image.png](https://raw.githubusercontent.com/autsu/diagrams/master/img/20240706011129.png)
+
+可以看到，Nodeport 类型的 service，只有 worker 节点可以 curl 通，master 节点是不行的
 
 Next: [Cleaning Up](13-cleanup.md)

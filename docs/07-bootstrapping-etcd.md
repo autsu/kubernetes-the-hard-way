@@ -30,6 +30,12 @@ Extract and install the `etcd` server and the `etcdctl` command line utility:
   tar -xvf etcd-v3.4.27-linux-arm64.tar.gz
   mv etcd-v3.4.27-linux-arm64/etcd* /usr/local/bin/
 }
+
+# 我的
+{
+  tar -xvf downloads/etcd-v3.4.27-linux-arm64.tar.gz
+  mv etcd-v3.4.27-linux-arm64/etcd* /usr/local/bin/
+}
 ```
 
 ### Configure the etcd Server
@@ -45,10 +51,15 @@ Extract and install the `etcd` server and the `etcdctl` command line utility:
 
 Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
 
+每个 etcd 成员在 etcd 集群中必须有唯一的名称。设置 etcd 名称以匹配当前计算实例的主机名：
+
 Create the `etcd.service` systemd unit file:
 
 ```bash
 mv etcd.service /etc/systemd/system/
+
+# me
+cp units/etcd.service /etc/systemd/system/
 ```
 
 ### Start the etcd Server
