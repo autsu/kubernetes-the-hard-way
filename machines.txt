@@ -1,0 +1,3 @@
+198.19.249.197 server.kubernetes.local server
+198.19.249.34 node-0.kubernetes.local node-0 10.200.0.0/24
+198.19.249.136 node-1.kubernetes.local node-1 10.200.1.0/24
