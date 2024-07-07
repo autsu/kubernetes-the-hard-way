@@ -2,13 +2,19 @@
 
 In this lab you will generate [Kubernetes configuration files](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/), also known as kubeconfigs, which enable Kubernetes clients to locate and authenticate to the Kubernetes API Servers.
 
+在本实验中，您将生成 [Kubernetes 配置文件](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，也称为 kubeconfigs，它使 Kubernetes 客户端能够定位并进行身份验证Kubernetes API 服务器。
+
 ## Client Authentication Configs
 
 In this section you will generate kubeconfig files for the `kubelet` and the `admin` user.
 
+在本节中，您将为“kubelet”和“admin”用户生成 kubeconfig 文件。
+
 ### The kubelet Kubernetes Configuration File
 
 When generating kubeconfig files for Kubelets the client certificate matching the Kubelet's node name must be used. This will ensure Kubelets are properly authorized by the Kubernetes [Node Authorizer](https://kubernetes.io/docs/admin/authorization/node/).
+
+为 Kubelet 生成 kubeconfig 文件时，**必须使用与 Kubelet 节点名称匹配的客户端证书**。这将确保 Kubelet 得到 Kubernetes 节点授权者的正确授权。
 
 > The following commands must be run in the same directory used to generate the SSL certificates during the [Generating TLS Certificates](04-certificate-authority.md) lab.
 
@@ -57,6 +63,8 @@ Generate a kubeconfig file the node-0 worker node:
 >    ```
 >
 > 总结来说，这段脚本针对每个指定的节点，自动创建了一个包含了必要证书、指向特定Kubernetes集群的配置（`kubeconfig`）。这使得每个节点都能够以其所分配的身份证书来安全地与集群通信。
+
+
 
 ```bash
 for host in node-0 node-1; do
